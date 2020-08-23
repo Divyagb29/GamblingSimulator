@@ -33,9 +33,12 @@ calculateAmountWinOrLose()
 	done
 	if [[ $NO_OF_WINS -gt $NO_OF_LOSES ]]
 	then
-		amountWon=$((NO_OF_WINS * 50))
+		amountOfDaysLost=$(( NO_OF_DAYS - NO_OF_WINS ))
+		amountWon=$(((NO_OF_WINS - amountOfDaysLost)*50))
 	else
 		amountLost=$((NO_OF_LOSES * 50))
+		amountOfDaysWon=$(( NO_OF_DAYS - NO_OF_LOSES ))
+		amountLost=$(((NO_OF_LOSES - amountOfDaysLost) * 50))
 	fi
 }
 for (( i = 1;i <= $NO_OF_DAYS ; i++  )) 
