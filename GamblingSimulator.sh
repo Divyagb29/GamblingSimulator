@@ -4,6 +4,9 @@ echo "Welcome to Gambler Simulator"
 STAKE=100
 BET=1
 NO_OF_DAYS=20
+declare amountWon
+declare amountLost
+declare NEXT_MONTH
 calculateWinOrLose()
 {
 	while [ $STAKE -lt '100' &&  $STAKE -gt '50' ] 
@@ -81,3 +84,9 @@ do
 done
 
 calculateAmountWinOrLose
+if [[ $amountWon -ge '50' ]]
+ then
+	NEXT_MONTH="Continue playing next month"
+else
+	NEXT_MONTH="Stop Gambling"
+fi
