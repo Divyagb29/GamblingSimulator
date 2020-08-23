@@ -19,7 +19,33 @@ calculateWinOrLose()
 		wins[((WIN_COUNT++))]=$WIN 
 		loses[((LOSE_COUNT++))]=$LOSE	
 }
-
+#Method to find Luckiest day or Unluckiest day
+calculateLuckyOrUnlucky()
+{
+	declare -a arr1=$@
+	for i in ${arr1[@]} 
+	do
+		(($i > max1 || max1 == 0 )) && max1=$i
+		(($i < min1 || min1 == 0 )) && min1=$i
+	done
+    more=$max1
+	day=1
+	for i in ${arr1[@]} do
+		if [[ $i -eq $more ]]
+		then
+			if [[ $win -eq '0' ]]
+			then
+				LUCKIESTDAY=$day
+				win=$((win + 1))
+				break
+			elif [[ $win -eq '1' ]] then 
+       	 		UNLUCKIESDAY=$day
+				break
+			fi
+		fi
+		((day++))
+	done
+}
 calculateAmountWinOrLose()
 {
 	for (( i = 1 ; i<= $NO_OF_DAYS ;i++ ))
@@ -31,6 +57,11 @@ calculateAmountWinOrLose()
 			NO_OF_LOSES=$((NO_OF_LOSES +1))
 		fi
 	done
+	
+	calculateLuckyOrUnlucky "${wins[@]}"
+
+	calculateLuckyOrUnlucky "${loses[@]}" 
+	
 	if [[ $NO_OF_WINS -gt $NO_OF_LOSES ]]
 	then
 		amountOfDaysLost=$(( NO_OF_DAYS - NO_OF_WINS ))
